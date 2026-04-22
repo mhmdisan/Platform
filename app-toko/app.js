@@ -69,3 +69,21 @@ async function ambilDataBarang() {
 
 // 6. Jalankan fungsi saat file JS ini di-load
 ambilDataBarang();
+
+
+// ==========================================
+// 7. REGISTRASI SERVICE WORKER (PWA)
+// Rekrut "Manajer Offline" agar toko bisa
+// tetap berjalan tanpa koneksi internet.
+// ==========================================
+if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+        navigator.serviceWorker.register('sw.js')
+            .then(registration => {
+                console.log('[PWA] Service Worker berhasil didaftarkan!', registration.scope);
+            })
+            .catch(err => {
+                console.error('[PWA] Service Worker gagal:', err);
+            });
+    });
+}

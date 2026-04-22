@@ -1,28 +1,40 @@
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
     <title>Aplikasi Toko PWA</title>
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#C9A84C">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="AppToko">
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Montserrat:wght@300;400;500&display=swap"
+        rel="stylesheet">
     <style>
         :root {
-            --gold:       #C9A84C;
+            --gold: #C9A84C;
             --gold-light: #E8D5A3;
-            --gold-dark:  #8B6914;
-            --ink:        #0A0A08;
-            --ink-2:      #111110;
-            --line:       rgba(201,168,76,0.18);
-            --line-bright:rgba(201,168,76,0.5);
+            --gold-dark: #8B6914;
+            --ink: #0A0A08;
+            --ink-2: #111110;
+            --line: rgba(201, 168, 76, 0.18);
+            --line-bright: rgba(201, 168, 76, 0.5);
         }
 
-        * { box-sizing: border-box; margin: 0; padding: 0; }
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
 
         body {
             font-family: 'Montserrat', sans-serif;
             background-color: var(--ink);
             background-image:
-                radial-gradient(ellipse 70% 50% at 50% 0%, rgba(201,168,76,0.06) 0%, transparent 60%),
-                repeating-linear-gradient(90deg, transparent, transparent 119px, rgba(201,168,76,0.025) 120px);
+                radial-gradient(ellipse 70% 50% at 50% 0%, rgba(201, 168, 76, 0.06) 0%, transparent 60%),
+                repeating-linear-gradient(90deg, transparent, transparent 119px, rgba(201, 168, 76, 0.025) 120px);
             min-height: 100vh;
             display: flex;
             align-items: center;
@@ -30,14 +42,46 @@
             padding: 3rem 1.5rem;
         }
 
-        .outer { width: 100%; max-width: 860px; position: relative; }
+        .outer {
+            width: 100%;
+            max-width: 860px;
+            position: relative;
+        }
 
-        .corner { position: absolute; width: 28px; height: 28px; z-index: 2; }
-        .corner svg { width: 100%; height: 100%; }
-        .corner-tl { top: -2px; left: -2px; }
-        .corner-tr { top: -2px; right: -2px; transform: scaleX(-1); }
-        .corner-bl { bottom: -2px; left: -2px; transform: scaleY(-1); }
-        .corner-br { bottom: -2px; right: -2px; transform: scale(-1); }
+        .corner {
+            position: absolute;
+            width: 28px;
+            height: 28px;
+            z-index: 2;
+        }
+
+        .corner svg {
+            width: 100%;
+            height: 100%;
+        }
+
+        .corner-tl {
+            top: -2px;
+            left: -2px;
+        }
+
+        .corner-tr {
+            top: -2px;
+            right: -2px;
+            transform: scaleX(-1);
+        }
+
+        .corner-bl {
+            bottom: -2px;
+            left: -2px;
+            transform: scaleY(-1);
+        }
+
+        .corner-br {
+            bottom: -2px;
+            right: -2px;
+            transform: scale(-1);
+        }
 
         .card {
             background: linear-gradient(160deg, #141412 0%, #0e0e0c 40%, #111110 100%);
@@ -46,12 +90,39 @@
             padding: 3.5rem 3rem;
         }
 
-        .ruled { display: flex; align-items: center; gap: 14px; margin-bottom: 2.5rem; }
-        .ruled-line { flex: 1; height: 1px; background: linear-gradient(90deg, transparent, var(--line-bright), transparent); }
-        .ruled-diamond { width: 6px; height: 6px; background: var(--gold); transform: rotate(45deg); flex-shrink: 0; }
-        .ruled-dot { width: 3px; height: 3px; background: var(--gold-dark); border-radius: 50%; flex-shrink: 0; }
+        .ruled {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin-bottom: 2.5rem;
+        }
 
-        .header { text-align: center; margin-bottom: 3rem; }
+        .ruled-line {
+            flex: 1;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--line-bright), transparent);
+        }
+
+        .ruled-diamond {
+            width: 6px;
+            height: 6px;
+            background: var(--gold);
+            transform: rotate(45deg);
+            flex-shrink: 0;
+        }
+
+        .ruled-dot {
+            width: 3px;
+            height: 3px;
+            background: var(--gold-dark);
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
 
         .eyebrow {
             font-family: 'Montserrat', sans-serif;
@@ -72,25 +143,56 @@
             line-height: 1;
             margin-bottom: 0.5rem;
         }
-        h1 em { font-style: italic; color: var(--gold); }
+
+        h1 em {
+            font-style: italic;
+            color: var(--gold);
+        }
 
         .subtitle {
             font-family: 'Cormorant Garamond', serif;
             font-style: italic;
             font-size: 1rem;
-            color: rgba(201,168,76,0.4);
+            color: rgba(201, 168, 76, 0.4);
             letter-spacing: 0.05em;
         }
 
-        .ornament { display: flex; align-items: center; justify-content: center; gap: 10px; margin: 2rem 0; }
-        .ornament-line { flex: 1; height: 1px; background: linear-gradient(90deg, transparent, var(--line)); }
-        .ornament-text { font-family: 'Cormorant Garamond', serif; font-size: 1.1rem; color: var(--gold-dark); letter-spacing: 0.2em; }
+        .ornament {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin: 2rem 0;
+        }
 
-        .table-wrap { border: 1px solid var(--line); border-radius: 1px; overflow: hidden; }
+        .ornament-line {
+            flex: 1;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--line));
+        }
 
-        table { width: 100%; border-collapse: collapse; }
+        .ornament-text {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.1rem;
+            color: var(--gold-dark);
+            letter-spacing: 0.2em;
+        }
 
-        thead tr { background: rgba(201,168,76,0.07); border-bottom: 1px solid var(--line-bright); }
+        .table-wrap {
+            border: 1px solid var(--line);
+            border-radius: 1px;
+            overflow: hidden;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        thead tr {
+            background: rgba(201, 168, 76, 0.07);
+            border-bottom: 1px solid var(--line-bright);
+        }
 
         thead th {
             font-family: 'Montserrat', sans-serif;
@@ -102,12 +204,29 @@
             padding: 16px 24px;
             text-align: center;
         }
-        thead th:nth-child(2) { text-align: left; }
 
-        tbody tr { border-bottom: 1px solid rgba(201,168,76,0.07); transition: background 0.3s ease; }
-        tbody tr:last-child { border-bottom: none; }
-        tbody tr:hover { background: rgba(201,168,76,0.04); }
-        tbody td { padding: 18px 24px; text-align: center; vertical-align: middle; }
+        thead th:nth-child(2) {
+            text-align: left;
+        }
+
+        tbody tr {
+            border-bottom: 1px solid rgba(201, 168, 76, 0.07);
+            transition: background 0.3s ease;
+        }
+
+        tbody tr:last-child {
+            border-bottom: none;
+        }
+
+        tbody tr:hover {
+            background: rgba(201, 168, 76, 0.04);
+        }
+
+        tbody td {
+            padding: 18px 24px;
+            text-align: center;
+            vertical-align: middle;
+        }
 
         .td-no {
             font-family: 'Cormorant Garamond', serif;
@@ -130,11 +249,12 @@
             display: inline-flex;
             align-items: center;
             gap: 6px;
-            background: rgba(201,168,76,0.06);
-            border: 1px solid rgba(201,168,76,0.22);
+            background: rgba(201, 168, 76, 0.06);
+            border: 1px solid rgba(201, 168, 76, 0.22);
             border-radius: 1px;
             padding: 5px 14px;
         }
+
         .price-currency {
             font-family: 'Montserrat', sans-serif;
             font-size: 9px;
@@ -142,6 +262,7 @@
             letter-spacing: 0.1em;
             color: var(--gold-dark);
         }
+
         .price-amount {
             font-family: 'Cormorant Garamond', serif;
             font-size: 1rem;
@@ -150,116 +271,150 @@
             letter-spacing: 0.05em;
         }
 
-        .state-row td { padding: 3.5rem !important; text-align: center !important; }
+        .state-row td {
+            padding: 3.5rem !important;
+            text-align: center !important;
+        }
+
         .state-text {
             font-family: 'Cormorant Garamond', serif;
             font-style: italic;
             font-size: 1rem;
-            color: rgba(201,168,76,0.3);
+            color: rgba(201, 168, 76, 0.3);
             letter-spacing: 0.1em;
         }
 
-        @keyframes shimmer { 0%, 100% { opacity: 0.3; } 50% { opacity: 0.7; } }
-        .animate-pulse .state-text { animation: shimmer 2s ease-in-out infinite; }
+        @keyframes shimmer {
 
-        .footer { margin-top: 2.5rem; display: flex; align-items: center; justify-content: center; gap: 14px; }
+            0%,
+            100% {
+                opacity: 0.3;
+            }
+
+            50% {
+                opacity: 0.7;
+            }
+        }
+
+        .animate-pulse .state-text {
+            animation: shimmer 2s ease-in-out infinite;
+        }
+
+        .footer {
+            margin-top: 2.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 14px;
+        }
+
         .footer-text {
             font-family: 'Montserrat', sans-serif;
             font-size: 9px;
             font-weight: 400;
             letter-spacing: 0.25em;
             text-transform: uppercase;
-            color: rgba(201,168,76,0.2);
+            color: rgba(201, 168, 76, 0.2);
         }
-        .footer-gem { width: 4px; height: 4px; background: var(--gold-dark); transform: rotate(45deg); flex-shrink: 0; opacity: 0.5; }
+
+        .footer-gem {
+            width: 4px;
+            height: 4px;
+            background: var(--gold-dark);
+            transform: rotate(45deg);
+            flex-shrink: 0;
+            opacity: 0.5;
+        }
     </style>
 </head>
+
 <body>
 
-<div class="outer">
+    <div class="outer">
 
-    <div class="corner corner-tl">
-        <svg viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M2 26 L2 2 L26 2" stroke="#C9A84C" stroke-width="1" opacity="0.6"/>
-            <path d="M2 2 L8 2 M2 2 L2 8" stroke="#C9A84C" stroke-width="1.5"/>
-            <circle cx="2" cy="2" r="1.5" fill="#C9A84C"/>
-        </svg>
+        <div class="corner corner-tl">
+            <svg viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M2 26 L2 2 L26 2" stroke="#C9A84C" stroke-width="1" opacity="0.6" />
+                <path d="M2 2 L8 2 M2 2 L2 8" stroke="#C9A84C" stroke-width="1.5" />
+                <circle cx="2" cy="2" r="1.5" fill="#C9A84C" />
+            </svg>
+        </div>
+        <div class="corner corner-tr">
+            <svg viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M2 26 L2 2 L26 2" stroke="#C9A84C" stroke-width="1" opacity="0.6" />
+                <path d="M2 2 L8 2 M2 2 L2 8" stroke="#C9A84C" stroke-width="1.5" />
+                <circle cx="2" cy="2" r="1.5" fill="#C9A84C" />
+            </svg>
+        </div>
+        <div class="corner corner-bl">
+            <svg viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M2 26 L2 2 L26 2" stroke="#C9A84C" stroke-width="1" opacity="0.6" />
+                <path d="M2 2 L8 2 M2 2 L2 8" stroke="#C9A84C" stroke-width="1.5" />
+                <circle cx="2" cy="2" r="1.5" fill="#C9A84C" />
+            </svg>
+        </div>
+        <div class="corner corner-br">
+            <svg viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M2 26 L2 2 L26 2" stroke="#C9A84C" stroke-width="1" opacity="0.6" />
+                <path d="M2 2 L8 2 M2 2 L2 8" stroke="#C9A84C" stroke-width="1.5" />
+                <circle cx="2" cy="2" r="1.5" fill="#C9A84C" />
+            </svg>
+        </div>
+
+        <div class="card">
+
+            <div class="ruled">
+                <div class="ruled-line"></div>
+                <div class="ruled-dot"></div>
+                <div class="ruled-diamond"></div>
+                <div class="ruled-dot"></div>
+                <div class="ruled-line"></div>
+            </div>
+
+            <div class="header">
+                <p class="eyebrow">Koleksi Eksklusif 2026</p>
+                <h1>Daftar <em>Barang</em></h1>
+                <p class="subtitle">Inventori Pilihan Terbaik</p>
+            </div>
+
+            <div class="ornament">
+                <div class="ornament-line"></div>
+                <span class="ornament-text"></span>
+                <div class="ornament-line"></div>
+            </div>
+
+            <div class="table-wrap">
+                <table>
+                    <thead>
+                        <tr>
+                            <th style="width:80px">No</th>
+                            <th>Nama Barang</th>
+                            <th style="width:220px">Harga</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tabel-barang">
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="ornament" style="margin-top:2rem; margin-bottom:0;">
+                <div class="ornament-line"></div>
+                <span class="ornament-text"></span>
+                <div class="ornament-line"></div>
+            </div>
+
+            <div class="footer">
+                <div class="footer-gem"></div>
+                <span class="footer-text">ListKu</span>
+                <div class="footer-gem"></div>
+                <span class="footer-text">Powered by Muhammad Ichsan</span>
+                <div class="footer-gem"></div>
+            </div>
+
+        </div>
     </div>
-    <div class="corner corner-tr">
-        <svg viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M2 26 L2 2 L26 2" stroke="#C9A84C" stroke-width="1" opacity="0.6"/>
-            <path d="M2 2 L8 2 M2 2 L2 8" stroke="#C9A84C" stroke-width="1.5"/>
-            <circle cx="2" cy="2" r="1.5" fill="#C9A84C"/>
-        </svg>
-    </div>
-    <div class="corner corner-bl">
-        <svg viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M2 26 L2 2 L26 2" stroke="#C9A84C" stroke-width="1" opacity="0.6"/>
-            <path d="M2 2 L8 2 M2 2 L2 8" stroke="#C9A84C" stroke-width="1.5"/>
-            <circle cx="2" cy="2" r="1.5" fill="#C9A84C"/>
-        </svg>
-    </div>
-    <div class="corner corner-br">
-        <svg viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M2 26 L2 2 L26 2" stroke="#C9A84C" stroke-width="1" opacity="0.6"/>
-            <path d="M2 2 L8 2 M2 2 L2 8" stroke="#C9A84C" stroke-width="1.5"/>
-            <circle cx="2" cy="2" r="1.5" fill="#C9A84C"/>
-        </svg>
-    </div>
 
-    <div class="card">
-
-        <div class="ruled">
-            <div class="ruled-line"></div>
-            <div class="ruled-dot"></div>
-            <div class="ruled-diamond"></div>
-            <div class="ruled-dot"></div>
-            <div class="ruled-line"></div>
-        </div>
-
-        <div class="header">
-            <p class="eyebrow">Koleksi Eksklusif &nbsp;.&nbsp; 2026</p>
-            <h1>Daftar <em>Barang</em></h1>
-            <p class="subtitle">Inventori Pilihan Terbaik</p>
-        </div>
-
-        <div class="ornament">
-            <div class="ornament-line"></div>
-            <span class="ornament-text"></span>
-            <div class="ornament-line"></div>
-        </div>
-
-        <div class="table-wrap">
-            <table>
-                <thead>
-                    <tr>
-                        <th style="width:80px">No</th>
-                        <th>Nama Barang</th>
-                        <th style="width:220px">Harga</th>
-                    </tr>
-                </thead>
-                <tbody id="tabel-barang">
-                </tbody>
-            </table>
-        </div>
-
-        <div class="ornament" style="margin-top:2rem; margin-bottom:0;">
-            <div class="ornament-line"></div>
-            <span class="ornament-text"></span>
-            <div class="ornament-line"></div>
-        </div>
-
-        <div class="footer">
-            <div class="footer-gem"></div>
-            <span class="footer-text"> 2026 Aplikasi Toko</span>
-            <div class="footer-gem"></div>
-            <span class="footer-text">Powered by JavaScript</span>
-            <div class="footer-gem"></div>
-        </div>
-
-    </div>
-</div>
-
-<script src="app.js"></script>
+    <script src="app.js"></script>
 </body>
+
 </html>
